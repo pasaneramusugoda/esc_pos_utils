@@ -154,7 +154,9 @@ class Generator {
     while (left < widthPx) {
       final im.Image slice = im.copyCrop(biggerImage,
           x: left, y: 0, width: lineHeight, height: heightPx);
-      final Uint8List bytes = slice.getBytes(order: im.ChannelOrder.grayAlpha);
+      // final Uint8List bytes = slice.getBytes(order: im.ChannelOrder.grayAlpha);
+      final imgBinary = slice.convert(numChannels: 1);
+      final Uint8List bytes = imgBinary.getBytes();
       blobs.add(bytes);
       left += lineHeight;
     }
