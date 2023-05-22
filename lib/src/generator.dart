@@ -153,8 +153,10 @@ class Generator {
     final List<List<int>> blobs = [];
 
     while (left < widthPx) {
-      final Image slice = copyCrop(biggerImage, x: left, y: 0, width: lineHeight, height: heightPx);
-      final Uint8List bytes = slice.getBytes(order: ChannelOrder.grayAlpha);
+      final Image slice = copyCrop(biggerImage,x: left, y: 0, width: lineHeight, height: heightPx);
+      grayscale(slice);
+      final imgBinary = slice.convert(numChannels: 1);
+      final Uint8List bytes = imgBinary.getBytes();
       blobs.add(bytes);
       left += lineHeight;
     }
